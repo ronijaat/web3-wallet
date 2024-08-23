@@ -16,7 +16,8 @@ interface PublicKeyWithBalance {
 }
 
 export const EthWallet = ({ mnemonic }: EthWalletProps) => {
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [addresses, setAddresses] = useState<PublicKeyWithBalance[]>([]);
 
@@ -35,6 +36,7 @@ export const EthWallet = ({ mnemonic }: EthWalletProps) => {
   };
 
   const addWallet = async () => {
+    setLoading(true);
     const seed = await mnemonicToSeed(mnemonic);
     const derivationPath = `m/44'/60'/${currentIndex}'/0'`;
     const hdNode = HDNodeWallet.fromSeed(seed);
@@ -55,6 +57,7 @@ export const EthWallet = ({ mnemonic }: EthWalletProps) => {
         balance: balance,
       },
     ]);
+    setLoading(false);
   };
 
   return (
