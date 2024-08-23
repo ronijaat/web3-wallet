@@ -16,6 +16,7 @@ interface PublicKeyWithBalance {
 }
 
 export const EthWallet = ({ mnemonic }: EthWalletProps) => {
+    const [loading, setLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [addresses, setAddresses] = useState<PublicKeyWithBalance[]>([]);
 
@@ -59,7 +60,9 @@ export const EthWallet = ({ mnemonic }: EthWalletProps) => {
   return (
     <div>
       <h1>Ethereum</h1>
-      <Button onClick={addWallet}>Add ETH wallet</Button>
+      <Button onClick={addWallet} className="mt-2" disabled={loading}>
+        {loading ? 'Loading...' : 'Add Wallet'}
+      </Button>
 
       {addresses.map((address, i) => (
         <div key={address.key}>
